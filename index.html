@@ -5,95 +5,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OpenClaw Architecture Review — Command Center</title>
 <link rel="stylesheet" href="https://shared.adam-harris.alphaclaw.app/theme.css">
+<script src="https://shared.adam-harris.alphaclaw.app/components/index.js"></script>
 <style>
   body { padding: 0; margin: 0; overflow: hidden; user-select: none; }
-  .deck { width: 100vw; height: 100vh; position: relative; }
-  .slide {
-    position: absolute; inset: 0;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    padding: 60px 80px; opacity: 0; transform: translateX(40px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    pointer-events: none; text-align: center;
-  }
-  .slide.active { opacity: 1; transform: translateX(0); pointer-events: auto; }
-  .slide.exit { opacity: 0; transform: translateX(-40px); }
-  .slide h1 { font-size: 3rem; margin-bottom: 16px; background: var(--accent-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .slide h2 { font-size: 2rem; margin-bottom: 20px; color: var(--accent); }
-  .slide h3 { font-size: 1.4rem; margin: 16px 0 8px; color: var(--accent2); }
-  .slide p, .slide li { font-size: 1.1rem; line-height: 1.7; color: var(--muted); max-width: 900px; }
-  .slide ul { list-style: none; padding: 0; text-align: left; max-width: 900px; width: 100%; }
-  .slide ul li::before { content: "→ "; color: var(--accent); font-weight: bold; }
-  .slide .subtitle { font-size: 1.3rem; color: var(--muted); margin-top: 8px; }
-  .slide .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; width: 100%; max-width: 900px; margin-top: 20px; }
-  .slide .stat { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px; padding: 24px; backdrop-filter: blur(12px); }
-  .slide .stat .num { font-size: 2.4rem; font-weight: 800; background: var(--accent-grad); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .slide .stat .label { color: var(--muted); font-size: 0.95rem; margin-top: 4px; }
-  .slide table { border-collapse: collapse; margin-top: 16px; width: 100%; max-width: 900px; text-align: left; }
-  .slide th { color: var(--accent); border-bottom: 1px solid var(--border); padding: 8px 12px; font-size: 0.9rem; }
-  .slide td { padding: 8px 12px; color: var(--muted); font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
-  .slide .layer-stack { width: 100%; max-width: 700px; margin-top: 20px; }
-  .slide .layer { background: var(--glass); border: 1px solid var(--glass-border); padding: 14px 24px; margin: 4px 0; border-radius: 10px; color: var(--text); font-size: 1rem; backdrop-filter: blur(8px); display: flex; justify-content: space-between; }
-  .slide .layer .detail { color: var(--muted); font-size: 0.85rem; }
-  .slide .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; text-align: left; width: 100%; max-width: 900px; margin-top: 16px; }
-  .slide .cols h3 { margin-top: 0; }
-  .slide .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 900px; margin-top: 16px; }
-  .slide .tag { background: var(--glass); border: 1px solid var(--glass-border); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; color: var(--text); }
-  .slide .wins li { margin-bottom: 8px; }
-  .counter {
-    position: fixed; bottom: 20px; right: 30px;
-    color: var(--muted); font-size: 0.85rem; z-index: 100;
-    background: var(--glass); padding: 6px 14px; border-radius: 20px;
-    border: 1px solid var(--glass-border); backdrop-filter: blur(8px);
-  }
-  .nav-hint {
-    position: fixed; bottom: 20px; left: 30px;
-    color: rgba(255,255,255,0.3); font-size: 0.75rem; z-index: 100;
-  }
-  .progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent-grad); z-index: 200; transition: width 0.4s ease; }
+  .subtitle { font-size: 1.3rem; color: var(--muted); margin-top: 8px; }
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 900px; margin-top: 16px; }
+  .wins li { margin-bottom: 8px; }
 </style>
 </head>
 <body>
-<div class="progress" id="progress"></div>
-<div class="deck" id="deck">
+
+<cc-slide-deck transition="slide">
 
 <!-- Slide 1: Title -->
-<div class="slide active">
+<cc-slide>
   <h1>OpenClaw Architecture Review</h1>
   <p class="subtitle">Command Center · adam-harris Instance</p>
   <p style="margin-top:24px; color: var(--muted);">A deep dive into how 44 web apps, 40 shared components, 36 skills, and a full design system come together in one AI-powered workspace.</p>
-</div>
+</cc-slide>
 
 <!-- Slide 2: By the Numbers -->
-<div class="slide">
+<cc-slide>
   <h2>By the Numbers</h2>
-  <div class="stat-grid">
-    <div class="stat"><div class="num">44</div><div class="label">Web Apps Deployed</div></div>
-    <div class="stat"><div class="num">40</div><div class="label">Shared Components</div></div>
-    <div class="stat"><div class="num">36</div><div class="label">Custom Skills</div></div>
-    <div class="stat"><div class="num">17</div><div class="label">Memory Files</div></div>
-    <div class="stat"><div class="num">1,600</div><div class="label">Lines in theme.css</div></div>
-    <div class="stat"><div class="num">11+</div><div class="label">Supabase Tables</div></div>
-    <div class="stat"><div class="num">12+</div><div class="label">Integrations</div></div>
-    <div class="stat"><div class="num">~2 min</div><div class="label">Chat → Live Site</div></div>
+  <div class="cc-stat-grid">
+    <cc-stat-card value="44" label="Web Apps Deployed"></cc-stat-card>
+    <cc-stat-card value="40" label="Shared Components"></cc-stat-card>
+    <cc-stat-card value="36" label="Custom Skills"></cc-stat-card>
+    <cc-stat-card value="17" label="Memory Files"></cc-stat-card>
+    <cc-stat-card value="1,600" label="Lines in theme.css"></cc-stat-card>
+    <cc-stat-card value="11+" label="Supabase Tables"></cc-stat-card>
+    <cc-stat-card value="12+" label="Integrations"></cc-stat-card>
+    <cc-stat-card value="~2 min" label="Chat → Live Site"></cc-stat-card>
   </div>
-</div>
+</cc-slide>
 
 <!-- Slide 3: Architecture Layers -->
-<div class="slide">
+<cc-slide>
   <h2>Architecture Layers</h2>
-  <div class="layer-stack">
-    <div class="layer"><span>Web Apps (44 static sites)</span><span class="detail">*.adam-harris.alphaclaw.app</span></div>
-    <div class="layer"><span>Shared Component Library (40)</span><span class="detail">shared.adam-harris.alphaclaw.app</span></div>
-    <div class="layer"><span>Design System</span><span class="detail">theme.css · glass + dark/light</span></div>
-    <div class="layer"><span>Database</span><span class="detail">Supabase · PostgreSQL + Auth</span></div>
-    <div class="layer"><span>Skills Engine (36)</span><span class="detail">Orchestrators & automation</span></div>
-    <div class="layer"><span>Memory System (17 files)</span><span class="detail">Markdown + DB dual-write</span></div>
-    <div class="layer"><span>OpenClaw Agent Runtime</span><span class="detail">AI agent with full tool access</span></div>
-  </div>
-</div>
+  <cc-layer-stack animated>
+    <cc-layer label="Web Apps (44 static sites)" detail="*.adam-harris.alphaclaw.app"></cc-layer>
+    <cc-layer label="Shared Component Library (40)" detail="shared.adam-harris.alphaclaw.app"></cc-layer>
+    <cc-layer label="Design System" detail="theme.css · glass + dark/light"></cc-layer>
+    <cc-layer label="Database" detail="Supabase · PostgreSQL + Auth"></cc-layer>
+    <cc-layer label="Skills Engine (36)" detail="Orchestrators & automation"></cc-layer>
+    <cc-layer label="Memory System (17 files)" detail="Markdown + DB dual-write"></cc-layer>
+    <cc-layer label="OpenClaw Agent Runtime" detail="AI agent with full tool access"></cc-layer>
+  </cc-layer-stack>
+</cc-slide>
 
 <!-- Slide 4: Shared Components -->
-<div class="slide">
+<cc-slide>
   <h2>Shared Component Library</h2>
   <p>One <code>&lt;script&gt;</code> import → 40 web components in every app.</p>
   <div class="cols">
@@ -108,10 +69,10 @@
       <h3>Auth & Utils</h3><p>cc-auth · cc-helpers · cc-prefs · cc-share · cc-toast</p>
     </div>
   </div>
-</div>
+</cc-slide>
 
 <!-- Slide 5: App Pipeline -->
-<div class="slide">
+<cc-slide>
   <h2>The App Pipeline</h2>
   <ul>
     <li>AI receives request via chat or cron job</li>
@@ -123,10 +84,10 @@
     <li>App registered in <code>memory/apps.md</code></li>
   </ul>
   <p style="margin-top:24px; color: var(--accent); font-weight: 600;">Conversation → live website in ~2 minutes.</p>
-</div>
+</cc-slide>
 
 <!-- Slide 6: App Categories -->
-<div class="slide">
+<cc-slide>
   <h2>App Categories</h2>
   <div class="cols">
     <div>
@@ -142,10 +103,10 @@
       <p>alpha-wins · command-center · hspt-practice · hspt-tutor · lastrev-redesign · lighthouse · shared · uptime · ux-review</p>
     </div>
   </div>
-</div>
+</cc-slide>
 
 <!-- Slide 7: Database -->
-<div class="slide">
+<cc-slide>
   <h2>Database Layer — Supabase</h2>
   <table>
     <tr><th>Table</th><th>Rows</th><th>Purpose</th></tr>
@@ -158,10 +119,10 @@
     <tr><td>crons</td><td>16</td><td>Scheduled job definitions</td></tr>
     <tr><td colspan="3" style="color:var(--accent)">+ goals · core_memories · loop_tracking · media</td></tr>
   </table>
-</div>
+</cc-slide>
 
 <!-- Slide 8: Crons -->
-<div class="slide">
+<cc-slide>
   <h2>Automation & Cron Jobs</h2>
   <p>16 scheduled jobs managed via the cc-crons dashboard.</p>
   <ul>
@@ -172,10 +133,10 @@
     <li><strong>Heartbeat</strong> — health checks and status updates</li>
   </ul>
   <p style="margin-top:20px;">Built-in <strong>loop prevention</strong>: 3 consecutive failures → auto-disable + alert.</p>
-</div>
+</cc-slide>
 
 <!-- Slide 9: Skills -->
-<div class="slide">
+<cc-slide>
   <h2>Skills Ecosystem — 36 Skills</h2>
   <div class="cols">
     <div>
@@ -195,10 +156,10 @@
       <p>memory-hygiene · backlog-meeting · alpha-wins · session-logs</p>
     </div>
   </div>
-</div>
+</cc-slide>
 
 <!-- Slide 10: Memory -->
-<div class="slide">
+<cc-slide>
   <h2>Memory System</h2>
   <p>17 markdown files providing persistent context across sessions.</p>
   <div class="cols">
@@ -212,10 +173,10 @@
     </div>
   </div>
   <p style="margin-top:20px;">Dual-write: local markdown (fast) + Supabase (durable). Core memories have <strong>5× priority</strong> and cannot be overwritten by AI.</p>
-</div>
+</cc-slide>
 
 <!-- Slide 11: Design System -->
-<div class="slide">
+<cc-slide>
   <h2>Design System — theme.css</h2>
   <p>1,600 lines powering all 44 apps from a single file.</p>
   <ul>
@@ -227,10 +188,10 @@
     <li>System font stack with serif option</li>
     <li>Built-in animation classes</li>
   </ul>
-</div>
+</cc-slide>
 
 <!-- Slide 12: Wins -->
-<div class="slide">
+<cc-slide>
   <h2>Key Architectural Wins</h2>
   <ul class="wins">
     <li><strong>Component-first:</strong> 40 shared web components = zero duplication</li>
@@ -242,10 +203,10 @@
     <li><strong>Loop prevention:</strong> Failing crons auto-disable before damage</li>
     <li><strong>Single theme:</strong> One CSS file, 44 apps, dark + light mode</li>
   </ul>
-</div>
+</cc-slide>
 
 <!-- Slide 13: Future -->
-<div class="slide">
+<cc-slide>
   <h2>Scalability & Future Potential</h2>
   <div class="cols">
     <div>
@@ -268,18 +229,18 @@
       </ul>
     </div>
   </div>
-</div>
+</cc-slide>
 
 <!-- Slide 14: Component Catalog -->
-<div class="slide">
+<cc-slide>
   <h2>Appendix: Component Catalog</h2>
   <div class="tag-cloud">
-    <span class="tag">cc-topbar</span><span class="tag">cc-nav</span><span class="tag">cc-app-nav</span><span class="tag">cc-sidebar</span><span class="tag">cc-auth</span><span class="tag">cc-toast</span><span class="tag">cc-modal</span><span class="tag">cc-field</span><span class="tag">cc-prefs</span><span class="tag">cc-tabs</span><span class="tag">cc-icons</span><span class="tag">cc-pill-filter</span><span class="tag">cc-pill-dropdown</span><span class="tag">cc-user-pill</span><span class="tag">cc-slack-msg</span><span class="tag">cc-github-pr</span><span class="tag">cc-particles</span><span class="tag">cc-confetti</span><span class="tag">cc-stat-counter</span><span class="tag">cc-parallax</span><span class="tag">cc-lightbox</span><span class="tag">cc-fade-in</span><span class="tag">cc-slide-in</span><span class="tag">cc-stagger</span><span class="tag">cc-typewriter</span><span class="tag">cc-reveal</span><span class="tag">cc-empty-state</span><span class="tag">cc-search</span><span class="tag">cc-pill-list</span><span class="tag">cc-star-rating</span><span class="tag">cc-apps</span><span class="tag">cc-share</span><span class="tag">cc-media-card</span><span class="tag">cc-type-badge</span><span class="tag">cc-view-toggle</span><span class="tag">cc-placeholder</span><span class="tag">cc-page-header</span><span class="tag">cc-helpers</span>
+    <cc-pill-list items='["cc-topbar","cc-nav","cc-app-nav","cc-sidebar","cc-auth","cc-toast","cc-modal","cc-field","cc-prefs","cc-tabs","cc-icons","cc-pill-filter","cc-pill-dropdown","cc-user-pill","cc-slack-msg","cc-github-pr","cc-particles","cc-confetti","cc-stat-counter","cc-stat-card","cc-parallax","cc-lightbox","cc-fade-in","cc-slide-in","cc-stagger","cc-typewriter","cc-reveal","cc-empty-state","cc-search","cc-pill-list","cc-star-rating","cc-apps","cc-share","cc-media-card","cc-type-badge","cc-view-toggle","cc-placeholder","cc-page-header","cc-layer-stack","cc-slide-deck","cc-helpers"]' size="sm"></cc-pill-list>
   </div>
-</div>
+</cc-slide>
 
 <!-- Slide 15: Skills Catalog -->
-<div class="slide">
+<cc-slide>
   <h2>Appendix: Skills & Apps Catalog</h2>
   <div class="cols" style="font-size:0.9rem;">
     <div>
@@ -299,51 +260,9 @@
       <p><strong>Tools (9):</strong> alpha-wins, command-center, hspt-practice, hspt-tutor, lastrev-redesign, lighthouse, shared, uptime, ux-review</p>
     </div>
   </div>
-</div>
+</cc-slide>
 
-</div><!-- /deck -->
+</cc-slide-deck>
 
-<div class="counter" id="counter">1 / 15</div>
-<div class="nav-hint">← → or click to navigate</div>
-
-<script>
-const slides = document.querySelectorAll('.slide');
-const counter = document.getElementById('counter');
-const progress = document.getElementById('progress');
-let current = 0;
-
-function show(n) {
-  if (n < 0 || n >= slides.length) return;
-  slides[current].classList.remove('active');
-  slides[current].classList.add('exit');
-  setTimeout(() => slides[current === n ? current : (current)].classList.remove('exit'), 500);
-  current = n;
-  slides[current].classList.add('active');
-  counter.textContent = `${current + 1} / ${slides.length}`;
-  progress.style.width = `${((current + 1) / slides.length) * 100}%`;
-}
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(current + 1); }
-  if (e.key === 'ArrowLeft') { e.preventDefault(); show(current - 1); }
-  if (e.key === 'Home') show(0);
-  if (e.key === 'End') show(slides.length - 1);
-});
-
-document.querySelector('.deck').addEventListener('click', e => {
-  if (e.clientX > window.innerWidth / 2) show(current + 1);
-  else show(current - 1);
-});
-
-// Touch support
-let touchX = 0;
-document.addEventListener('touchstart', e => touchX = e.touches[0].clientX);
-document.addEventListener('touchend', e => {
-  const dx = e.changedTouches[0].clientX - touchX;
-  if (Math.abs(dx) > 50) dx > 0 ? show(current - 1) : show(current + 1);
-});
-
-progress.style.width = `${(1 / slides.length) * 100}%`;
-</script>
 </body>
 </html>
