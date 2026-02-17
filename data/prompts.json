@@ -1,0 +1,42 @@
+[
+  {
+    "id": "architecture-overview",
+    "title": "Architecture Overview Presentation",
+    "category": "Presentations",
+    "icon": "🏗️",
+    "prompt": "Create a 15-slide interactive presentation showcasing a modern AI-powered web platform architecture. Include slides for: system metrics (number of apps, components, skills), architecture layer stack (apps → components → design system → database → AI runtime), shared component library catalog, app deployment pipeline, database schema overview, automation/cron system, skills ecosystem, memory/context system, design system highlights, and scalability roadmap. Use a dark glass-morphism theme with amber/gold accents. Each slide should be concise with visual hierarchy — headers, stat cards, two-column layouts, and tag clouds where appropriate.",
+    "tags": ["architecture", "presentation", "slides", "overview"]
+  },
+  {
+    "id": "component-library-pitch",
+    "title": "Component Library Value Pitch",
+    "category": "Presentations",
+    "icon": "🧩",
+    "prompt": "Write a concise pitch explaining the value of a shared web component library with 40+ components serving 44 apps. Cover: zero-duplication benefits, convention-over-configuration approach, how one script import gives every app navigation, auth, modals, toasts, animations, filters, and data display. Include specific examples like cc-app-nav for consistent navigation, cc-auth for password gating, cc-modal for dialogs, cc-empty-state for empty data views, and animation components (fade-in, stagger, reveal) for polished UX. Emphasize the 2-minute deploy time from conversation to live site.",
+    "tags": ["components", "pitch", "shared-library", "web-components"]
+  },
+  {
+    "id": "system-metrics-summary",
+    "title": "System Metrics Dashboard Summary",
+    "category": "Documentation",
+    "icon": "📊",
+    "prompt": "Generate a comprehensive metrics summary for an AI-powered web platform with: 44 deployed web apps across 4 categories (CC modules, business tools, consumer/fun, developer tools), 40 shared web components, 36 automation skills, 17 persistent memory files, 1600-line design system, 11+ Supabase database tables, 12+ service integrations, and 16 scheduled cron jobs. Format as a structured report with sections for each subsystem, current counts, and growth trends. Include a health assessment for each area.",
+    "tags": ["metrics", "dashboard", "reporting", "health"]
+  },
+  {
+    "id": "skill-ecosystem-doc",
+    "title": "Skills Ecosystem Documentation",
+    "category": "Documentation",
+    "icon": "⚡",
+    "prompt": "Document a skills ecosystem with 36 skills organized into 6 categories: App Building (create-app, landing-page, ads-page, docs-page, ideas-page, logs-page, prompts-page, list-view, database, nightly-review), Idea Pipeline (capture, discovery, generation, review, scoring), Research (company, lead, people-lookup, people, personality, travel-destination), Dev/Ops (build-orchestrator, code-review, seo-audit, productionize, workspace-info, kanban), Integrations (gamma, twilio, resend-email, zoom-intelligence, ga4-reporting), and Maintenance (memory-hygiene, backlog-meeting, alpha-wins, session-logs). For each skill, describe its trigger, inputs, outputs, and how it connects to other skills in the ecosystem.",
+    "tags": ["skills", "documentation", "automation", "ecosystem"]
+  },
+  {
+    "id": "memory-system-explainer",
+    "title": "Memory System Architecture Explainer",
+    "category": "Technical Deep-Dive",
+    "icon": "🧠",
+    "prompt": "Explain the architecture of a dual-write AI memory system that uses 17 markdown files for fast local access and Supabase PostgreSQL for durable storage. Cover: identity files (core.md with 5x priority protection, preferences.md, decisions.md), work files (apps registry, components catalog, clients, people), operations files (open-items, integrations-log, project-history, code-review-learnings), and daily files (rolling 5-day brainstorm). Explain how core memories cannot be overwritten by AI, how the dual-write ensures both speed and durability, and how the memory system provides continuity across sessions.",
+    "tags": ["memory", "architecture", "context", "persistence"]
+  }
+]
