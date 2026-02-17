@@ -10,6 +10,7 @@
   .subtitle { font-size: 1.3rem; color: var(--muted); margin-top: 8px; }
   .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 900px; margin-top: 16px; }
   .wins li { margin-bottom: 8px; }
+  .growth { display: inline-block; background: var(--accent); color: #000; border-radius: 4px; padding: 2px 8px; font-size: 0.85rem; font-weight: 600; margin-left: 8px; }
 </style>
 </head>
 <body>
@@ -22,20 +23,21 @@
 <cc-slide>
   <h1>OpenClaw Architecture Review</h1>
   <p class="subtitle">Command Center · adam-harris Instance</p>
-  <p style="margin-top:24px; color: var(--muted);">A deep dive into how 44 web apps, 40 shared components, 36 skills, and a full design system come together in one AI-powered workspace.</p>
+  <p style="margin-top:24px; color: var(--muted);">A deep dive into how 48 web apps, 69 shared components, 37 skills, and 63 database tables come together in one AI-powered workspace.</p>
+  <p style="margin-top:12px; color: var(--accent); font-size: 0.95rem;">Updated February 17, 2026</p>
 </cc-slide>
 
 <!-- Slide 2: By the Numbers -->
 <cc-slide>
   <h2>By the Numbers</h2>
   <div class="cc-stat-grid">
-    <cc-stat-card value="44" label="Web Apps Deployed"></cc-stat-card>
-    <cc-stat-card value="40" label="Shared Components"></cc-stat-card>
-    <cc-stat-card value="36" label="Custom Skills"></cc-stat-card>
-    <cc-stat-card value="17" label="Memory Files"></cc-stat-card>
-    <cc-stat-card value="1,600" label="Lines in theme.css"></cc-stat-card>
-    <cc-stat-card value="11+" label="Supabase Tables"></cc-stat-card>
-    <cc-stat-card value="12+" label="Integrations"></cc-stat-card>
+    <cc-stat-card value="48" label="Web Apps Deployed"></cc-stat-card>
+    <cc-stat-card value="69" label="Shared Components"></cc-stat-card>
+    <cc-stat-card value="37" label="Custom Skills"></cc-stat-card>
+    <cc-stat-card value="63" label="Supabase Tables"></cc-stat-card>
+    <cc-stat-card value="24" label="Memory Files"></cc-stat-card>
+    <cc-stat-card value="1,605" label="Lines in theme.css"></cc-stat-card>
+    <cc-stat-card value="20+" label="Integrations"></cc-stat-card>
     <cc-stat-card value="~2 min" label="Chat → Live Site"></cc-stat-card>
   </div>
 </cc-slide>
@@ -44,30 +46,31 @@
 <cc-slide>
   <h2>Architecture Layers</h2>
   <cc-layer-stack animated>
-    <cc-layer label="Web Apps (44 static sites)" detail="*.adam-harris.alphaclaw.app"></cc-layer>
-    <cc-layer label="Shared Component Library (40)" detail="shared.adam-harris.alphaclaw.app"></cc-layer>
-    <cc-layer label="Design System" detail="theme.css · glass + dark/light"></cc-layer>
-    <cc-layer label="Database" detail="Supabase · PostgreSQL + Auth"></cc-layer>
-    <cc-layer label="Skills Engine (36)" detail="Orchestrators & automation"></cc-layer>
-    <cc-layer label="Memory System (17 files)" detail="Markdown + DB dual-write"></cc-layer>
-    <cc-layer label="OpenClaw Agent Runtime" detail="AI agent with full tool access"></cc-layer>
+    <cc-layer label="Web Apps (48 static sites)" detail="*.adam-harris.alphaclaw.app"></cc-layer>
+    <cc-layer label="Shared Component Library (69)" detail="shared.adam-harris.alphaclaw.app"></cc-layer>
+    <cc-layer label="Design System" detail="theme.css · glass + dark/light · landing.css"></cc-layer>
+    <cc-layer label="Database (63 tables)" detail="Supabase · PostgreSQL + RLS + Auth"></cc-layer>
+    <cc-layer label="Skills Engine (37)" detail="Orchestrators, pipelines & automation"></cc-layer>
+    <cc-layer label="Cron & Queue System" detail="8 batch jobs · trigger_queue processor"></cc-layer>
+    <cc-layer label="Memory System (24 files)" detail="Markdown + DB dual-write · core memories"></cc-layer>
+    <cc-layer label="OpenClaw Agent Runtime" detail="Claude · full tool access · Slack · 20+ integrations"></cc-layer>
   </cc-layer-stack>
 </cc-slide>
 
 <!-- Slide 4: Shared Components -->
 <cc-slide>
-  <h2>Shared Component Library</h2>
-  <p>One <code>&lt;script&gt;</code> import → 40 web components in every app.</p>
+  <h2>Shared Component Library — 69 Components</h2>
+  <p>One <code>&lt;script&gt;</code> import → 69 web components in every app.</p>
   <div class="cols">
     <div>
-      <h3>Navigation</h3><p>cc-topbar · cc-nav · cc-app-nav · cc-sidebar</p>
-      <h3>Data Display</h3><p>cc-apps · cc-slack-msg · cc-github-pr · cc-media-card</p>
-      <h3>Input/Forms</h3><p>cc-search · cc-field · cc-pill-filter · cc-pill-dropdown</p>
+      <h3>Navigation & Layout</h3><p>cc-topbar · cc-nav · cc-app-nav · cc-sidebar · cc-modal · cc-tabs · cc-page-header · cc-empty-state</p>
+      <h3>Data Display</h3><p>cc-apps · cc-slack-msg · cc-github-pr · cc-media-card · cc-stat-card · cc-stat-counter · cc-lightbox · cc-gallery</p>
+      <h3>Business Modules</h3><p>cc-leads · cc-client-health · cc-community · cc-contentful · cc-calendar · cc-uptime · cc-lighthouse · cc-prs</p>
     </div>
     <div>
-      <h3>Layout</h3><p>cc-modal · cc-tabs · cc-empty-state · cc-page-header</p>
-      <h3>Animation</h3><p>cc-particles · cc-confetti · cc-fade-in · cc-parallax · cc-typewriter · cc-reveal</p>
-      <h3>Auth & Utils</h3><p>cc-auth · cc-helpers · cc-prefs · cc-share · cc-toast</p>
+      <h3>Input & Filtering</h3><p>cc-search · cc-field · cc-pill-filter · cc-pill-dropdown · cc-pill-list · cc-pill · cc-view-toggle · cc-star-rating</p>
+      <h3>Animation & Effects</h3><p>cc-particles · cc-confetti · cc-fade-in · cc-slide-in · cc-stagger · cc-parallax · cc-typewriter · cc-reveal</p>
+      <h3>Auth, Config & Utils</h3><p>cc-auth · cc-helpers · cc-prefs · cc-share · cc-toast · cc-icons · cc-edit-mode · cc-dry-audit · cc-console-log</p>
     </div>
   </div>
 </cc-slide>
@@ -76,30 +79,31 @@
 <cc-slide>
   <h2>The App Pipeline</h2>
   <ul>
-    <li>AI receives request via chat or cron job</li>
-    <li><strong>create-app</strong> skill orchestrates — delegates to page sub-skills</li>
-    <li>Sub-skills build each page: landing, ads, docs, ideas, logs, prompts</li>
-    <li>Each page uses shared components + theme.css automatically</li>
+    <li>AI receives request via chat, cron job, or trigger_queue</li>
+    <li><strong>build-orchestrator</strong> skill gates every request through shared library first</li>
+    <li><strong>create-app</strong> skill orchestrates — delegates to 10 page sub-skills</li>
+    <li>Sub-skills build each page: landing, ads, docs, ideas, logs, prompts, list-view</li>
+    <li>Each page uses shared components + theme.css + Supabase automatically</li>
     <li>Git init → push to <code>last-rev-llc/ah-&lt;app-name&gt;</code></li>
     <li>Auto-deployed to <code>&lt;name&gt;.adam-harris.alphaclaw.app</code></li>
-    <li>App registered in <code>memory/apps.md</code></li>
+    <li><strong>Nightly review</strong> cron audits all apps for drift and quality</li>
   </ul>
   <p style="margin-top:24px; color: var(--accent); font-weight: 600;">Conversation → live website in ~2 minutes.</p>
 </cc-slide>
 
 <!-- Slide 6: App Categories -->
 <cc-slide>
-  <h2>App Categories</h2>
+  <h2>App Categories — 48 Apps</h2>
   <div class="cols">
     <div>
-      <h3>CC Modules (12)</h3>
-      <p>cc-agents · cc-client-health · cc-concerts · cc-contentful · cc-crons · cc-gallery · cc-ideas · cc-leads · cc-meme-generator · cc-recipes · cc-users · cc-architecture</p>
-      <h3>Business (8)</h3>
-      <p>accounts · client-scorecard · meeting-summaries · sales · sentiment · sprint-planning · standup · travel-collection</p>
+      <h3>CC Modules (14)</h3>
+      <p>cc-agents · cc-ai-scripts · cc-architecture · cc-client-health · cc-concerts · cc-contentful · cc-crons · cc-gallery · cc-ideas · cc-leads · cc-meme-generator · cc-pr-review · cc-recipes · cc-users</p>
+      <h3>Business (9)</h3>
+      <p>accounts · client-scorecard · daily-updates · meeting-summaries · sales · sentiment · sprint-planning · standup · travel-collection</p>
     </div>
     <div>
-      <h3>Consumer/Fun (15)</h3>
-      <p>age-of-apes · cringe-rizzler · dad-joke-of-the-day · gen-alpha through gen-z · generations · proper-wine-pour · roblox-dances · slang-translator · soccer-training · superstars</p>
+      <h3>Consumer/Fun (16)</h3>
+      <p>age-of-apes · cringe-rizzler · dad-joke-of-the-day · gen-alpha · gen-boomers · gen-silent · gen-x · gen-y · gen-z · generations · proper-wine-pour · roblox-dances · slang-translator · soccer-training · superstars</p>
       <h3>Tools (9)</h3>
       <p>alpha-wins · command-center · hspt-practice · hspt-tutor · lastrev-redesign · lighthouse · shared · uptime · ux-review</p>
     </div>
@@ -108,41 +112,60 @@
 
 <!-- Slide 7: Database -->
 <cc-slide>
-  <h2>Database Layer — Supabase</h2>
+  <h2>Database Layer — 63 Supabase Tables</h2>
   <table>
     <tr><th>Table</th><th>Rows</th><th>Purpose</th></tr>
-    <tr><td>ideas</td><td>204</td><td>Idea board with scoring, snooze, tags</td></tr>
+    <tr><td>ideas</td><td>469</td><td>Idea board with scoring, snooze, tags</td></tr>
     <tr><td>slang</td><td>201</td><td>Generational slang dictionary</td></tr>
+    <tr><td>trigger_queue</td><td>194</td><td>Async job queue for batch processing</td></tr>
+    <tr><td>zoom_transcripts</td><td>132</td><td>Meeting transcripts + intelligence</td></tr>
     <tr><td>travel_properties</td><td>56</td><td>Luxury travel destinations</td></tr>
     <tr><td>recipes</td><td>54</td><td>Workflow/automation recipes</td></tr>
+    <tr><td>apps</td><td>48</td><td>App registry & metadata</td></tr>
     <tr><td>leads</td><td>45</td><td>Sales pipeline CRM</td></tr>
-    <tr><td>concerts</td><td>20</td><td>Event tracker</td></tr>
-    <tr><td>crons</td><td>16</td><td>Scheduled job definitions</td></tr>
-    <tr><td colspan="3" style="color:var(--accent)">+ goals · core_memories · loop_tracking · media</td></tr>
+    <tr><td>daily_updates</td><td>34</td><td>Morning briefings & digests</td></tr>
+    <tr><td colspan="3" style="color:var(--accent)">+ 54 more: concerts · crons · goals · core_memories · media · pr_reviews · clients · community · calendar_events · dance_submissions · standup_days · sentiment_days · lighthouse_audits …</td></tr>
   </table>
 </cc-slide>
 
-<!-- Slide 8: Crons -->
+<!-- Slide 8: Crons & Queue -->
 <cc-slide>
-  <h2>Automation & Cron Jobs</h2>
-  <p>16 scheduled jobs managed via the cc-crons dashboard.</p>
-  <ul>
-    <li><strong>Nightly reviews</strong> — drift detection, code quality checks</li>
-    <li><strong>Idea discovery</strong> — automated research + scoring</li>
-    <li><strong>Memory hygiene</strong> — prune stale data, sync files to DB</li>
-    <li><strong>Alpha wins</strong> — capture daily achievements</li>
-    <li><strong>Heartbeat</strong> — health checks and status updates</li>
-  </ul>
-  <p style="margin-top:20px;">Built-in <strong>loop prevention</strong>: 3 consecutive failures → auto-disable + alert.</p>
+  <h2>Automation & Cron System</h2>
+  <p>8 batch-orchestrated cron jobs managing the full automation lifecycle.</p>
+  <div class="cols">
+    <div>
+      <h3>Batch Schedule</h3>
+      <ul>
+        <li><strong>☀️ Morning</strong> — daily briefing, Slack digest (7:30am PT weekdays)</li>
+        <li><strong>💼 Business Hours</strong> — hourly during work (8am–5pm PT)</li>
+        <li><strong>⚡ Hourly</strong> — lightweight checks 24/7</li>
+        <li><strong>🌙 Nightly</strong> — app reviews, drift detection (9pm PT)</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Queue Processor</h3>
+      <ul>
+        <li>Runs every 5 minutes</li>
+        <li>194 jobs processed to date</li>
+        <li>Atomic claim → process → Slack report</li>
+        <li>Auto-recovery for stuck jobs (15min timeout)</li>
+      </ul>
+      <h3>Safety</h3>
+      <ul>
+        <li>Loop prevention: 3 failures → auto-disable + alert</li>
+        <li>Circular trigger detection in queue</li>
+      </ul>
+    </div>
+  </div>
 </cc-slide>
 
 <!-- Slide 9: Skills -->
 <cc-slide>
-  <h2>Skills Ecosystem — 36 Skills</h2>
+  <h2>Skills Ecosystem — 37 Skills</h2>
   <div class="cols">
     <div>
-      <h3>App Building (10)</h3>
-      <p>create-app · landing-page · ads-page · docs-page · ideas-page · logs-page · prompts-page · list-view · database · nightly-review</p>
+      <h3>App Building (11)</h3>
+      <p>build-orchestrator · create-app · landing-page · ads-page · docs-page · ideas-page · logs-page · prompts-page · list-view · database · nightly-review</p>
       <h3>Idea Pipeline (5)</h3>
       <p>capture-pipeline · discovery · generation · review · scoring</p>
       <h3>Research (6)</h3>
@@ -151,113 +174,152 @@
     <div>
       <h3>Dev/Ops (6)</h3>
       <p>build-orchestrator · code-review · seo-audit · productionize · workspace-info · kanban</p>
-      <h3>Integrations (5)</h3>
-      <p>gamma · twilio · resend-email · zoom-intelligence · ga4-reporting</p>
+      <h3>Integrations (6)</h3>
+      <p>gamma · twilio · resend-email · zoom-intelligence · ga4-reporting · jira</p>
       <h3>Maintenance (4)</h3>
       <p>memory-hygiene · backlog-meeting · alpha-wins · session-logs</p>
     </div>
   </div>
 </cc-slide>
 
-<!-- Slide 10: Memory -->
+<!-- Slide 10: Integrations -->
 <cc-slide>
-  <h2>Memory System</h2>
-  <p>17 markdown files providing persistent context across sessions.</p>
+  <h2>Integration Ecosystem — 20+ Services</h2>
   <div class="cols">
     <div>
-      <h3>Identity</h3><p>core.md (protected) · preferences.md · decisions.md</p>
-      <h3>Work</h3><p>apps.md (42-app registry) · components.md (40 components) · clients.md · people.md</p>
+      <h3>AI & Content</h3>
+      <p>Anthropic (Claude) · OpenAI (GPT + Whisper + DALL-E) · ElevenLabs (TTS) · Gamma (presentations)</p>
+      <h3>Dev & Deploy</h3>
+      <p>GitHub (last-rev-llc org) · Netlify · Vercel</p>
+      <h3>Communication</h3>
+      <p>Slack (bot + user + search) · Twilio (SMS/calls) · Resend (email) · Zoom (recordings + transcripts)</p>
     </div>
     <div>
-      <h3>Operations</h3><p>open-items.md · integrations-log.md · project-history.md · code-review-learnings.md</p>
-      <h3>Daily</h3><p>brainstorm files (rolling 5 days) · drift-audit reports</p>
+      <h3>Data & CMS</h3>
+      <p>Supabase (PostgreSQL) · Contentful (CMS) · Google Drive/Docs</p>
+      <h3>Business</h3>
+      <p>Jira / Atlassian · GA4 (analytics) · Brave Search</p>
+      <h3>Infrastructure</h3>
+      <p>AWS (EC2 + ALB + Route53 + Secrets Manager) · Custom domain routing</p>
     </div>
   </div>
-  <p style="margin-top:20px;">Dual-write: local markdown (fast) + Supabase (durable). Core memories have <strong>5× priority</strong> and cannot be overwritten by AI.</p>
 </cc-slide>
 
-<!-- Slide 11: Design System -->
+<!-- Slide 11: Memory -->
 <cc-slide>
-  <h2>Design System — theme.css</h2>
-  <p>1,600 lines powering all 44 apps from a single file.</p>
-  <ul>
-    <li>Dark mode default with light mode toggle</li>
-    <li>Glass morphism — backdrop-filter blur + translucent cards</li>
-    <li>CSS custom properties for consistent theming</li>
-    <li>Responsive grid utilities and card styles</li>
-    <li>Gradient accents: amber → gold</li>
-    <li>System font stack with serif option</li>
-    <li>Built-in animation classes</li>
-  </ul>
+  <h2>Memory System — 24 Files</h2>
+  <p>Persistent context across sessions with protected core memories.</p>
+  <div class="cols">
+    <div>
+      <h3>Identity & Core</h3><p>core.md (protected, AI-immutable) · preferences.md · decisions.md · reasoning-guidelines.md</p>
+      <h3>Knowledge</h3><p>apps.md · components.md · clients.md · people.md · integrations-log.md · project-history.md</p>
+    </div>
+    <div>
+      <h3>Operations</h3><p>open-items.md · code-review-learnings.md · drift-audit reports</p>
+      <h3>Daily Intelligence</h3><p>brainstorm files (rolling 7 days) · journal files · pr-triage reports</p>
+    </div>
+  </div>
+  <p style="margin-top:20px;">Dual-write: local markdown (fast) + Supabase (durable). Core memories have <strong>highest priority</strong> and cannot be overwritten by AI — only Adam can modify them.</p>
 </cc-slide>
 
-<!-- Slide 12: Wins -->
+<!-- Slide 12: Design System -->
+<cc-slide>
+  <h2>Design System</h2>
+  <p>1,605 lines in theme.css + landing.css powering all 48 apps.</p>
+  <div class="cols">
+    <div>
+      <h3>theme.css</h3>
+      <ul>
+        <li>Dark mode default + light mode toggle</li>
+        <li>Glass morphism — backdrop-filter blur + translucent cards</li>
+        <li>CSS custom properties for consistent theming</li>
+        <li>Responsive grid utilities and card styles</li>
+        <li>Gradient accents: amber → gold</li>
+        <li>System font stack with serif option</li>
+        <li>Built-in animation classes</li>
+      </ul>
+    </div>
+    <div>
+      <h3>landing.css</h3>
+      <ul>
+        <li>Marketing page design system</li>
+        <li>Glass/neon/parallax effects</li>
+        <li>Hero, features, how-it-works, CTA sections</li>
+        <li>Shared across all app landing pages</li>
+      </ul>
+    </div>
+  </div>
+</cc-slide>
+
+<!-- Slide 13: Key Wins -->
 <cc-slide>
   <h2>Key Architectural Wins</h2>
   <ul class="wins">
-    <li><strong>Component-first:</strong> 40 shared web components = zero duplication</li>
-    <li><strong>Convention over config:</strong> Same structure for every app</li>
-    <li><strong>Memory continuity:</strong> 17 files + DB = agent never loses context</li>
-    <li><strong>Automated quality:</strong> Nightly drift detection catches regressions</li>
-    <li><strong>Sub-2-minute deploys:</strong> Conversation → live site</li>
-    <li><strong>Self-documenting:</strong> Memory files auto-update as system grows</li>
-    <li><strong>Loop prevention:</strong> Failing crons auto-disable before damage</li>
-    <li><strong>Single theme:</strong> One CSS file, 44 apps, dark + light mode</li>
+    <li><strong>Component-first:</strong> 69 shared web components = zero duplication across 48 apps</li>
+    <li><strong>Convention over config:</strong> Same structure for every app, enforced by build-orchestrator</li>
+    <li><strong>Memory continuity:</strong> 24 files + DB dual-write = agent never loses context</li>
+    <li><strong>Automated quality:</strong> Nightly drift detection + PR reviews catch regressions</li>
+    <li><strong>Sub-2-minute deploys:</strong> Conversation → live site with custom domain</li>
+    <li><strong>Queue-driven automation:</strong> 194 async jobs processed via trigger_queue</li>
+    <li><strong>Loop prevention:</strong> Failing crons auto-disable, circular triggers blocked</li>
+    <li><strong>63-table data layer:</strong> Real business data — CRM, transcripts, analytics, content</li>
   </ul>
 </cc-slide>
 
-<!-- Slide 13: Future -->
+<!-- Slide 14: Growth & Future -->
 <cc-slide>
-  <h2>Scalability & Future Potential</h2>
+  <h2>Growth & Future Potential</h2>
   <div class="cols">
     <div>
-      <h3>Scaling Paths</h3>
+      <h3>Growth Since Launch</h3>
       <ul>
-        <li>Upgrade Supabase for more capacity</li>
-        <li>Edge caching for static apps</li>
-        <li>Component library → NPM package</li>
-        <li>Skills shareable across instances</li>
-        <li>Multi-agent specialization</li>
+        <li>Apps: 44 → 48 <span class="growth">+9%</span></li>
+        <li>Components: 40 → 69 <span class="growth">+73%</span></li>
+        <li>Skills: 36 → 37 <span class="growth">+3%</span></li>
+        <li>DB Tables: 11 → 63 <span class="growth">+473%</span></li>
+        <li>Ideas tracked: 204 → 469 <span class="growth">+130%</span></li>
       </ul>
     </div>
     <div>
       <h3>Near-term Opportunities</h3>
       <ul>
-        <li>Jira/Linear integration</li>
-        <li>Expanded Zoom intelligence</li>
+        <li>Expanded Zoom meeting intelligence</li>
         <li>GA4 dashboards per app</li>
         <li>Client-facing portals</li>
+        <li>Multi-agent specialization</li>
+        <li>Component library → NPM package</li>
+        <li>Skills shareable across instances</li>
       </ul>
     </div>
   </div>
 </cc-slide>
 
-<!-- Slide 14: Component Catalog -->
+<!-- Slide 15: Component Catalog -->
 <cc-slide>
-  <h2>Appendix: Component Catalog</h2>
+  <h2>Appendix: Component Catalog (69)</h2>
   <div class="tag-cloud">
-    <cc-pill-list items='["cc-topbar","cc-nav","cc-app-nav","cc-sidebar","cc-auth","cc-toast","cc-modal","cc-field","cc-prefs","cc-tabs","cc-icons","cc-pill-filter","cc-pill-dropdown","cc-user-pill","cc-slack-msg","cc-github-pr","cc-particles","cc-confetti","cc-stat-counter","cc-stat-card","cc-parallax","cc-lightbox","cc-fade-in","cc-slide-in","cc-stagger","cc-typewriter","cc-reveal","cc-empty-state","cc-search","cc-pill-list","cc-star-rating","cc-apps","cc-share","cc-media-card","cc-type-badge","cc-view-toggle","cc-placeholder","cc-page-header","cc-layer-stack","cc-slide-deck","cc-helpers"]' size="sm"></cc-pill-list>
+    <cc-pill-list items='["cc-ads","cc-agents","cc-apps","cc-auth","cc-calendar","cc-client-health","cc-client-health-summary","cc-community","cc-community-summary","cc-confetti","cc-console-log","cc-contentful","cc-contentful-summary","cc-crons","cc-docs","cc-dry-audit","cc-edit-mode","cc-empty-state","cc-fade-in","cc-field","cc-ga4-alerts","cc-gallery","cc-github-pr","cc-helpers","cc-icons","cc-ideas","cc-ideas-summary","cc-layer-stack","cc-leads","cc-leads-summary","cc-lightbox","cc-lighthouse","cc-media-card","cc-modal","cc-nav","cc-app-nav","cc-page-header","cc-parallax","cc-particles","cc-pill","cc-pill-dropdown","cc-pill-filter","cc-pill-list","cc-placeholder","cc-prefs","cc-prompts","cc-prs","cc-recipes","cc-reveal","cc-search","cc-share","cc-sidebar","cc-slack","cc-slack-msg","cc-slide-deck","cc-slide-in","cc-stagger","cc-star-rating","cc-stat-card","cc-stat-counter","cc-tabs","cc-toast","cc-topbar","cc-type-badge","cc-typewriter","cc-uptime","cc-user-pill","cc-users","cc-view-toggle"]' size="sm"></cc-pill-list>
   </div>
 </cc-slide>
 
-<!-- Slide 15: Skills Catalog -->
+<!-- Slide 16: Skills & Apps Catalog -->
 <cc-slide>
   <h2>Appendix: Skills & Apps Catalog</h2>
-  <div class="cols" style="font-size:0.9rem;">
+  <div class="cols" style="font-size:0.85rem;">
     <div>
-      <h3>36 Skills</h3>
-      <p><strong>App Building:</strong> create-app, landing, ads, docs, ideas, logs, prompts, list-view, database, nightly-review</p>
-      <p><strong>Idea Pipeline:</strong> capture, discovery, generation, review, scoring</p>
-      <p><strong>Research:</strong> company, lead, people-lookup, people, personality, travel</p>
-      <p><strong>Dev/Ops:</strong> build-orchestrator, code-review, seo-audit, productionize, workspace-info, kanban</p>
-      <p><strong>Integrations:</strong> gamma, twilio, resend-email, zoom, ga4</p>
-      <p><strong>Maintenance:</strong> memory-hygiene, backlog, alpha-wins, session-logs</p>
+      <h3>37 Skills</h3>
+      <p><strong>App Building (11):</strong> build-orchestrator, create-app, landing, ads, docs, ideas, logs, prompts, list-view, database, nightly-review</p>
+      <p><strong>Idea Pipeline (5):</strong> capture, discovery, generation, review, scoring</p>
+      <p><strong>Research (6):</strong> company, lead, people-lookup, people, personality, travel</p>
+      <p><strong>Dev/Ops (6):</strong> build-orchestrator, code-review, seo-audit, productionize, workspace-info, kanban</p>
+      <p><strong>Integrations (6):</strong> gamma, twilio, resend-email, zoom, ga4, jira</p>
+      <p><strong>Maintenance (4):</strong> memory-hygiene, backlog, alpha-wins, session-logs</p>
     </div>
     <div>
-      <h3>44 Apps</h3>
-      <p><strong>CC Modules (12):</strong> agents, architecture, client-health, concerts, contentful, crons, gallery, ideas, leads, meme-generator, recipes, users</p>
-      <p><strong>Business (8):</strong> accounts, client-scorecard, meeting-summaries, sales, sentiment, sprint-planning, standup, travel-collection</p>
-      <p><strong>Consumer (15):</strong> age-of-apes, cringe-rizzler, dad-jokes, gen-alpha→z, generations, wine-pour, roblox, slang, soccer, superstars</p>
+      <h3>48 Apps</h3>
+      <p><strong>CC Modules (14):</strong> agents, ai-scripts, architecture, client-health, concerts, contentful, crons, gallery, ideas, leads, meme-generator, pr-review, recipes, users</p>
+      <p><strong>Business (9):</strong> accounts, client-scorecard, daily-updates, meeting-summaries, sales, sentiment, sprint-planning, standup, travel-collection</p>
+      <p><strong>Consumer (16):</strong> age-of-apes, cringe-rizzler, dad-jokes, gen-alpha, gen-boomers, gen-silent, gen-x, gen-y, gen-z, generations, wine-pour, roblox-dances, slang-translator, soccer-training, superstars</p>
       <p><strong>Tools (9):</strong> alpha-wins, command-center, hspt-practice, hspt-tutor, lastrev-redesign, lighthouse, shared, uptime, ux-review</p>
     </div>
   </div>
