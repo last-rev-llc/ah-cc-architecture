@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OpenClaw Architecture Review — Command Center</title>
 <link rel="stylesheet" href="https://shared.adam-harris.alphaclaw.app/theme.css">
-<script src="https://shared.adam-harris.alphaclaw.app/components/index.js"></script>
 <style>
   body { padding: 0; margin: 0; overflow: hidden; user-select: none; }
   .subtitle { font-size: 1.3rem; color: var(--muted); margin-top: 8px; }
@@ -14,6 +13,8 @@
 </style>
 </head>
 <body>
+
+<cc-app-nav active="index"></cc-app-nav>
 
 <cc-slide-deck transition="slide">
 
@@ -264,5 +265,7 @@
 
 </cc-slide-deck>
 
+<cc-toast></cc-toast>
+<script src="https://shared.adam-harris.alphaclaw.app/components/index.js"></script>
 </body>
 </html>
