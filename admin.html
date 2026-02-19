@@ -14,8 +14,10 @@
 <link rel="stylesheet" href="https://shared.adam-harris.alphaclaw.app/theme.css">
 <script src="https://shared.adam-harris.alphaclaw.app/components/index.js"></script>
 <script src="https://shared.adam-harris.alphaclaw.app/supabase-client.js"></script>
+<script src="https://shared.adam-harris.alphaclaw.app/modules/cc-ideas.js"></script>
 <script src="https://shared.adam-harris.alphaclaw.app/modules/cc-prompts.js"></script>
 <script src="https://shared.adam-harris.alphaclaw.app/modules/cc-ads.js"></script>
+<script src="https://shared.adam-harris.alphaclaw.app/modules/cc-docs.js"></script>
 </head>
 <body>
 <cc-app-nav app="cc-architecture" title="cc-architecture" active="admin"></cc-app-nav>
@@ -23,11 +25,17 @@
 <cc-toast></cc-toast>
 <div style="max-width:1200px;margin:0 auto;padding:2rem 1rem;">
 <cc-tabs active="ideas">
+  <cc-tab name="ideas" label="Ideas" icon="lightbulb">
+    <cc-ideas app="cc-architecture"></cc-ideas>
+  </cc-tab>
   <cc-tab name="prompts" label="Prompts" icon="sparkles">
     <cc-prompts app="cc-architecture"></cc-prompts>
   </cc-tab>
   <cc-tab name="ads" label="Ads" icon="megaphone">
     <cc-ads app="cc-architecture"></cc-ads>
+  </cc-tab>
+  <cc-tab name="docs" label="Docs" icon="book">
+    <cc-docs app="cc-architecture"></cc-docs>
   </cc-tab>
 </cc-tabs>
 </div>
