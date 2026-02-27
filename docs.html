@@ -25,7 +25,8 @@ h1, h2, h3 { color: var(--accent); }
 </style>
 </head>
 <body>
-<cc-app-nav app="cc-architecture" active="docs"></cc-app-nav>
+<cc-app-topnav app="cc-architecture" title="Architecture Viewer" links='[{"href":"/admin.html","label":"Admin"},{"href":"/apps.html","label":"Apps"},{"href":"/ideas.html","label":"Ideas"},{"href":"/ads.html","label":"Ads"},{"href":"/prompts.html","label":"Prompts"},{"href":"/docs.html","label":"Docs"}]' active="docs"></cc-app-topnav>
+<cc-app-nav app="cc-architecture" active="docs" position="bottom"></cc-app-nav>
 <cc-toast></cc-toast>
 
 <div class="showcase-layout">
@@ -103,7 +104,6 @@ h1, h2, h3 { color: var(--accent); }
 </div>
 
 <script src="https://shared.adam-harris.alphaclaw.app/components/index.js"></script>
-<script src="https://shared.adam-harris.alphaclaw.app/supabase-auth.js"></script>
 <script>
 // Simple nav highlighting
 document.addEventListener('DOMContentLoaded', () => {

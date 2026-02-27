@@ -9,14 +9,14 @@
 <link rel="stylesheet" href="https://shared.adam-harris.alphaclaw.app/theme.css">
 </head>
 <body>
-<cc-app-nav app="cc-architecture" active="prompts"></cc-app-nav>
+<cc-app-topnav app="cc-architecture" title="Architecture Viewer" links='[{"href":"/admin.html","label":"Admin"},{"href":"/apps.html","label":"Apps"},{"href":"/ideas.html","label":"Ideas"},{"href":"/ads.html","label":"Ads"},{"href":"/prompts.html","label":"Prompts"},{"href":"/docs.html","label":"Docs"}]' active="prompts"></cc-app-topnav>
 <cc-user-auth mode="gate" allow-signup="false"></cc-user-auth>
+<cc-app-nav app="cc-architecture" active="prompts" position="bottom"></cc-app-nav>
 <cc-toast></cc-toast>
 
 <cc-prompts app="cc-architecture"></cc-prompts>
 
 <script src="https://shared.adam-harris.alphaclaw.app/components/index.js"></script>
-    <script src="https://shared.adam-harris.alphaclaw.app/supabase-auth.js"></script>
 <script src="https://shared.adam-harris.alphaclaw.app/supabase-client.js"></script>
 <script src="https://shared.adam-harris.alphaclaw.app/modules/cc-prompts.js"></script>
 </body>
